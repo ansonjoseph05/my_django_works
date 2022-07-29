@@ -24,3 +24,6 @@ urlpatterns = [
     path("hotel/menu/<int:pid>",views.MenuDetailsViews.as_view())
 
 ]
+
+
+# urls
