@@ -1,7 +1,7 @@
-"""dishes URL Configuration
+"""restrauntproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-
-from dishapp.views import DishesView,DishDetailView
+from django.contrib import admin
+from django.urls import path
+from menu import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hotel/dishes/',DishesView.as_view()),
-    path('hotel/dishes/<int:id>',DishDetailView.as_view())
-
+    path("hotel/menu/", views.MenuView.as_view()),
+    path("hotel/menu/<int:pid>", views.MenuDetailsView.as_view())
 ]
