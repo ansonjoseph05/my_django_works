@@ -19,3 +19,20 @@ menu_items = [
     {"code": 14, "dish_name": "masaladosa", "category": "nonveg", "price": 160, "rating": 4},
 
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

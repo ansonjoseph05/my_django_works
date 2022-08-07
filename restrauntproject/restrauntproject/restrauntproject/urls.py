@@ -19,9 +19,21 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import path
 from menu import views
+from rest_framework.routers import DefaultRouter
+from productsapi.views import ProductView, ProductDetailsView, ProductModelView, ProductDetailModelView, ProductViewSetView,ProductModelViewSetView,UserModelViewSetView
+
+router = DefaultRouter()
+router.register ("api/v3/products", ProductViewSetView, basename="products")
+router.register ("api/v4/products", ProductModelViewSetView, basename="mproducts")
+router.register ("", UserModelViewSetView ,basename="uprodcuts")
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("hotel/menu/", views.MenuView.as_view()),
-    path("hotel/menu/<int:pid>", views.MenuDetailsView.as_view())
-]
+                  path('admin/', admin.site.urls),
+                  path("hotel/menu/", views.MenuView.as_view()),
+                  path("hotel/menu/<int:pid>", views.MenuDetailsView.as_view()),
+                  path("myg/products/", ProductView.as_view()),
+                  path("myg/products/<int:id>", ProductDetailsView.as_view()),
+                  path("api/v2/myg/products/", ProductModelView.as_view()),
+                  path("api/v2/myg/products/<int:id>", ProductDetailModelView.as_view())
+              ] + router.urls

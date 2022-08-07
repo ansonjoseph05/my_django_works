@@ -16,12 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from dishapp.views import DishesView, DishDetailView, DishModelView, DishDetailsModelView,DishViewSetView,DishModelViewSetView,UserModelViewSetView
 
-from dishapp.views import DishesView,DishDetailView
+from rest_framework.routers import DefaultRouter
+
+router=DefaultRouter()
+router.register('api/v3/dishes',DishViewSetView,basename="dishes")
+router.register('api/v4/dishes',DishModelViewSetView,basename="dishes")
+router.register('api/accounts/signup',UserModelViewSetView,basename="mdishes")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hotel/dishes/',DishesView.as_view()),
-    path('hotel/dishes/<int:id>',DishDetailView.as_view())
+    path('hotel/dishes/', DishesView.as_view()),
+    path('hotel/dishes/<int:id>', DishDetailView.as_view()),
+    path('api/v2/hotel/dishes/', DishModelView.as_view()),
+    path('api/v2/hotel/dishes/<int:id>', DishDetailsModelView.as_view())
 
-]
+] + router.urls

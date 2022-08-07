@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from dishapp.models import Dishes
-
+from productsapi.models import Products
 from django.contrib.auth.models import User
-class DishSerializer(serializers.Serializer):
+
+class ProductSerializer(serializers.Serializer):
     id=serializers.CharField(read_only=True)
-    dish_name=serializers.CharField()
-    price = serializers.IntegerField()
+    product_name=serializers.CharField()
+    price=serializers.IntegerField()
     category=serializers.CharField()
     rating=serializers.FloatField()
 
@@ -18,33 +18,27 @@ class DishSerializer(serializers.Serializer):
     def validate(self,data):
         rating=data.get("rating")
         if rating<0:
-            raise serializers.ValidationError("invalid Rating")
+            raise serializers.ValidationError("invalid rating")
         return data
 
-class DishModelSerializer(serializers.ModelSerializer):
+
+class ProductModelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Dishes
-        # field=["product_name",
-        #        "price",
-        #        "category",
-        #        "rating"]
-
-        #  OR
-        fields = "__all__"
-
+        model=Products
+        fields=[
+            "id",
+            "product_name",
+            "price",
+            "category",
+            "rating"
+        ]
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model=User
         fields=[
+            "username",
             "first_name",
             "last_name",
-            "username",
             "email",
             "password"
-        ]
-
-    def create(self,validated_data):
-        return User.objects.create_user(**validated_data)
-
-
+        ]                                  # we dont use "__all__" here
